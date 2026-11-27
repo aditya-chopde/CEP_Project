@@ -18,14 +18,22 @@ const reportRoutes = require('./routes/report.routes');
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
+const clientBuildPath = path.join(__dirname, '../../../frontend/client/dist');
 
 // Security Headers
 app.use(helmet());
 
-// CORS Configuration
-const allowedOrigins = (process.env.CLIENT_ORIGIN || 'http://localhost:5173')
-  .split(',')
-  .map(origin => origin.trim())
+// 1. Serve static frontend assets in production BEFORE CORS runs
+if (isProduction && fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+}
+
+// 2. CORS Configuration (automatically includes Render's URL + CLIENT_ORIGIN)
+const allowedOrigins = [
+  ...(process.env.CLIENT_ORIGIN || 'http://localhost:5173').split(','),
+  process.env.RENDER_EXTERNAL_URL
+]
+  .map(origin => origin && origin.trim().replace(/\/$/, ''))
   .filter(Boolean);
 
 app.use(cors({
@@ -82,18 +90,11 @@ app.use('/api/report', reportLimiter, reportRoutes);
 // 404 for unknown API routes
 app.use('/api/*', notFound);
 
-// Serve static frontend in production
-if (isProduction) {
-  const clientBuildPath = path.join(__dirname, '../../../frontend/client/dist');
-  
-  if (fs.existsSync(clientBuildPath)) {
-    app.use(express.static(clientBuildPath));
-    
-    // React Router fallback
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(clientBuildPath, 'index.html'));
-    });
-  }
+// React Router fallback (must come AFTER /api/* routes)
+if (isProduction && fs.existsSync(clientBuildPath)) {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(clientBuildPath, 'index.html'));
+  });
 }
 
 // Global Error Handler
