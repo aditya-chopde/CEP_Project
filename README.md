@@ -21,3 +21,4 @@ no other environment variables are required for the single-service setup.
 For local development, set `CLIENT_ORIGIN=http://localhost:5173` in
 `Backend/server/.env` if needed, then run `npm --prefix Backend/server run dev`
 and `npm --prefix frontend/client run dev` in separate terminals.
+# CEP_Project
