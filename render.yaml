@@ -3,7 +3,7 @@ services:
     name: cyber-suraksha
     runtime: node
     plan: free
-    buildCommand: npm --prefix frontend/client ci && npm --prefix frontend/client run build && npm --prefix Backend/server ci
+    buildCommand: npm --prefix frontend/client ci --include=dev && npm --prefix frontend/client run build && npm --prefix Backend/server ci
     startCommand: npm --prefix Backend/server start
     healthCheckPath: /api/health
     envVars:
