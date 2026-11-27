@@ -6,7 +6,7 @@ awareness, quizzes, helplines, and reporting.
 ## Deploy on Render
 
 This repository includes a Render Blueprint in `render.yaml`, which deploys
-the frontend and API together as one web service.
+the frontend and API together as one free web service.
 
 1. Push this repository to GitHub.
 2. In Render, choose **New +** → **Blueprint**.
@@ -17,6 +17,8 @@ the frontend and API together as one web service.
 Render builds the Vite frontend and starts the Express server. The server serves
 the frontend and API from the same origin. Render sets `NODE_ENV=production`;
 no other environment variables are required for the single-service setup.
+Free services may sleep when idle and have limited resources. Reports are saved
+to the service filesystem, so they are not durable across restarts or deploys.
 
 For local development, set `CLIENT_ORIGIN=http://localhost:5173` in
 `Backend/server/.env` if needed, then run `npm --prefix Backend/server run dev`
