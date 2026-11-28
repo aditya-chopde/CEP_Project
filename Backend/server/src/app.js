@@ -15,6 +15,7 @@ const scamsRoutes = require('./routes/scams.routes');
 const quizRoutes = require('./routes/quiz.routes');
 const helplinesRoutes = require('./routes/helplines.routes');
 const reportRoutes = require('./routes/report.routes');
+const adminRoutes = require('./routes/admin.routes');
 
 const app = express();
 const isProduction = process.env.NODE_ENV === 'production';
@@ -86,6 +87,7 @@ app.use('/api/scams', scamsRoutes);
 app.use('/api/quiz', quizRoutes);
 app.use('/api/helplines', helplinesRoutes);
 app.use('/api/report', reportLimiter, reportRoutes);
+app.use('/api/admin', adminRoutes);
 
 // 404 for unknown API routes
 app.use('/api/*', notFound);
