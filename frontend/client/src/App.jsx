@@ -8,7 +8,10 @@ import Quiz from './pages/Quiz.jsx';
 import Helpline from './pages/Helpline.jsx';
 import Report from './pages/Report.jsx';
 import About from './pages/About.jsx';
+import AdminLogin from './pages/AdminLogin.jsx';
+import AdminPanel from './pages/AdminPanel.jsx';
 import NotFound from './pages/NotFound.jsx';
+import './styles/admin.css';
 
 const navItems = [
   { to: '/', label: 'Home' },
@@ -69,6 +72,8 @@ export default function App() {
           <Route path="/helpline" element={<Helpline />} />
           <Route path="/report" element={<Report />} />
           <Route path="/about" element={<About />} />
+          <Route path="/admin" element={<AdminLogin />} />
+          <Route path="/admin/panel" element={<AdminPanel />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

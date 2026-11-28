@@ -6,6 +6,7 @@ const links = [
   { to: '/quiz', title: 'Test your instincts', text: 'Check how quickly you can spot fake messages and calls.' },
   { to: '/helpline', title: 'Get emergency help', text: 'Call 1930 and find state contacts when something feels wrong.' },
   { to: '/report', title: 'Report suspicious activity', text: 'Share scam details to help warn others and stay prepared.' },
+  { to: '/admin', title: 'Admin Login', text: 'Access the admin dashboard to review and manage scam reports.' },
 ];
 
 export default function Home() {
